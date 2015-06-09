@@ -28,7 +28,8 @@ public class NimCommandLineUtils {
         sdkData.NIM_BIN_PATH = new File(fileSDK, "/bin").getAbsolutePath();
         sdkData.NIM_LIB_PATH = new File(fileSDK, "/lib").getAbsolutePath();
 
-        if ( ! new File(sdkData.NIM_BIN_PATH + "/nim").exists())
+        if ( ! new File(sdkData.NIM_BIN_PATH + "/nim").exists() &&
+             ! new File(sdkData.NIM_BIN_PATH + "/nim.exe").exists())
             return null;
 
         if ( ! new File(sdkData.NIM_LIB_PATH + "/system.nim").exists()) {
