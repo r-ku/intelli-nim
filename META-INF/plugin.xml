@@ -1,0 +1,55 @@
+<idea-plugin version="2">
+  <id>nim</id>
+  <name>Nim language plugin</name>
+  <version>0.1</version>
+  <vendor email="marek@server" url="https://sites.google.com/site/gibekm">Marek Gibek</vendor>
+
+  <description>Nim language plugin.</description>
+
+  <change-notes><![CDATA[
+  ]]></change-notes>
+
+  <!-- please see http://confluence.jetbrains.com/display/IDEADEV/Build+Number+Ranges for description -->
+  <idea-version since-build="131"/>
+
+  <!-- please see http://confluence.jetbrains.com/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
+       on how to target different products -->
+  <!-- uncomment to enable plugin in all products
+  <depends>com.intellij.modules.lang</depends>
+  -->
+
+  <extensions defaultExtensionNs="com.intellij">
+      <fileTypeFactory implementation="nim.NimFileTypeFactory"/>
+      <lang.parserDefinition language="Nim" implementationClass="nim.NimParserDefinition"/>
+      <lang.syntaxHighlighterFactory key="Nim" implementationClass="nim.highlight.NimaSyntaxHighlighterFactory"/>
+      <lang.braceMatcher language="Nim" implementationClass="nim.editor.NimBraceMatcher"/>
+      <lang.commenter language="Nim" implementationClass="nim.editor.NimCommenter" />
+      <colorSettingsPage implementation="nim.highlight.NimColorSettingsPage"/>
+      
+      <sdkType implementation="nim.sdk.NimSdkType" />
+      <moduleType id="NIM_MODULE" implementationClass="nim.module.NimModuleType" />
+      <moduleConfigurationEditorProvider implementation="nim.module.NimModuleEditorsProvider" />
+      <configurationType implementation="nim.configuration.NimRunConfigurationType" />
+
+      <compiler.task implementation="nim.compiler.NimCompileTask"/>
+  </extensions>
+
+  <application-components>
+    <!-- Add your application components here -->
+  </application-components>
+
+  <project-components>
+    <!-- Add your project components here -->
+  </project-components>
+
+  <actions>
+    <!-- Add your actions here -->
+  </actions>
+
+  <module-components>
+      <component>
+          <implementation-class>nim.module.NimModuleComponent</implementation-class>
+      </component>
+  </module-components>
+
+</idea-plugin>

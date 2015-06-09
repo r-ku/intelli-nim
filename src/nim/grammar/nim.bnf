@@ -1,0 +1,198 @@
+/*
+ *    Intellij platform plugin which adds support Nim programming language
+ *    Copyright (C) 2015  intelli-nim developers
+ *
+ *    This program is free software: you can redistribute it and/or modify
+ *    it under the terms of the GNU General Public License as published by
+ *    the Free Software Foundation, either version 3 of the License, or
+ *    (at your option) any later version.
+ *
+ *    This program is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU General Public License for more details.
+ */
+{
+    generate=[names="long"]
+
+    parserClass="nim.grammar.parser.NimGrammarParser"
+    parserUtilClass="nim.grammar.parser.NimParserUtil"
+
+    implements="nim.grammar.parser.psi.NimCompositeElement"
+    extends="nim.grammar.parser.psi.impl.NimCompositeElementImpl"
+
+    psiClassPrefix="Bnf"
+    psiImplClassSuffix="Impl"
+    psiPackage="nim.grammar.parser.psi"
+    psiImplPackage="nim.grammar.parser.psi.impl"
+    //psiImplUtilClass="nim.grammar.parser.psi.impl.GrammarPsiImplUtil"
+
+    elementTypeHolderClass="nim.grammar.parser.psi.NimTypes"
+    elementTypePrefix=""
+    elementTypeClass="nim.grammar.parser.psi.NimElementType"
+    tokenTypeClass="nim.grammar.parser.psi.NimTokenType"
+
+    tokens = [
+        ADDR              = 'addr'
+        AND               = 'and'
+        AS                = 'as'
+        ASM               = 'asm'
+        ATOMIC            = 'atomic'
+
+        BIND              = 'bind'
+        BLOCK             = 'block'
+        BREAK             = 'break'
+        CASE              = 'case'
+        CAST              = 'cast'
+
+        CONST             = 'const'
+        CONTINUE          = 'continue'
+        CONVERTER         = 'converter'
+
+        DEFER             = 'defer'
+        DISCARD           = 'discard'
+        DISTINCT          = 'distinct'
+        DIV               = 'div'
+        DO                = 'do'
+
+        ELIF              = 'elif'
+        ELSE              = 'else'
+        END               = 'end'
+        ENUM              = 'enum'
+        EXCEPT            = 'except'
+        EXPORT            = 'export'
+
+        FINALLY           = 'finally'
+        FOR               = 'for'
+        FROM              = 'from'
+        FUNC              = 'func'
+
+        GENERIC           = 'generic'
+        IF                = 'if'
+        IMPORT            = 'import'
+        IN                = 'in'
+        INCLUDE           = 'include'
+        INTERFACE         = 'interface'
+
+        IS                = 'is'
+        ISNOT             = 'isnot'
+        ITERATOR          = 'iterator'
+
+        LET               = 'let'
+
+        MACRO             = 'macro'
+        METHOD            = 'method'
+        MIXIN             = 'mixin'
+        MOD               = 'mod'
+        NIL               = 'nil'
+        NOT               = 'not'
+        NOTIN             = 'notin'
+
+        OBJECT            = 'object'
+        OF                = 'of'
+        OR                = 'or'
+        OUT               = 'out'
+
+        PROC              = 'proc'
+        PTR               = 'ptr'
+        RAISE             = 'raise'
+        REF               = 'ref'
+        RETURN            = 'return'
+        SHL               = 'shl'
+        SHR               = 'shr'
+        STATIC            = 'static'
+
+        TEMPLATE          = 'template'
+
+        TRY               = 'try'
+        TUPLE             = 'tuple'
+        TYPE              = 'type'
+        USING             = 'using'
+
+        VAR               = 'var'
+        WHEN              = 'when'
+        WHILE             = 'while'
+        WITH              = 'with'
+        WITHOUT           = 'without'
+        XOR               = 'xor'
+
+        YIELD             = 'yield'
+
+        DIGIT             = 'regexp:[0-9]'
+        HEXDIGIT          = 'regexp:{DIGIT}|[A-F]|[a-f]'
+        OCTDIGIT          = 'regexp:[0-7]'
+        BINDIGIT          = 'regexp:[0-1]'
+        HEX_LIT           = 'regexp:0(x|X){HEXDIGIT}(_{HEXDIGIT})*'
+        DEC_LIT           = 'regexp:-?{DIGIT}(_{DIGIT})*'
+        OCT_LIT           = 'regexp:0o{OCTDIGIT}(_{OCTDIGIT})*'
+        BIN_LIT           = 'regexp:0(b|B){BINDIGIT}(_{BINDIGIT})*'
+
+        INTLIT            = 'regexp:{HEX_LIT} | {DEC_LIT} | {OCT_LIT} | {BIN_LIT}'
+
+        INT8LIT           = "regexp:{INTLIT}'(i|I)8"
+        INT16LIT          = "regexp:{INTLIT}'(i|I)16"
+        INT32LIT          = "regexp:{INTLIT}'(i|I)32"
+        INT64LIT          = "regexp:{INTLIT}'(i|I)64"
+
+        UINTLIT           = "regexp:{INTLIT}'(u|U)"
+        UINT8LIT          = "regexp:{UINTLIT}'(u|U)8"
+        UINT16LIT         = "regexp:{INTLIT}'(u|U)16"
+        UINT32LIT         = "regexp:{INTLIT}'(u|U)32"
+        UINT64LIT         = "regexp:{INTLIT}'(u|U)64"
+
+        EXPONENT          = 'regexp:(e|E)[+-]{DIGIT}(_{DIGIT})*'
+        FLOATLIT          = 'regexp:-?{DIGIT}(_{DIGIT})*((.(_{DIGIT})*[EXPONENT])|{EXPONENT})'
+        FLOAT32LIT        = "regexp:({HEX_LIT}|{FLOATLIT}|{DEC_LIT}|{OCT_LIT}|{BIN_LIT})'(f|F)32"
+        FLOAT64LIT        = "regexp:({HEX_LIT}|{FLOATLIT}|{DEC_LIT}|{OCT_LIT}|{BIN_LIT})'(f|F)64"
+        FLOAT128LIT       = "regexp:({HEX_LIT}|{FLOATLIT}|{DEC_LIT}|{OCT_LIT}|{BIN_LIT})'(f|F)128"
+
+        STRLIT            = 'regexp:"(\\"|\\[^"]|[^\\])*"'
+        RSTRLIT           = 'regexp:r{STRLIT}'
+        TRIPLESTRLIT      = 'regexp:\"""(.|{EOL})*\"""'
+
+        //tkGStrLit           =
+        //tkGTripleStrLit     =
+        CHARLIT           = "'"
+
+        PARLE             = "("
+        PARRI             = ")"
+
+        BRACKETLE         = "["
+        BRACKETRI         = "]"
+
+        CURLYLE           = "{"
+        CURLYRI           = "}"
+
+        BRACKETDOTLE      = "[."
+        BRACKETDOTRI      = ".]"
+
+        CURLYDOTLE        = "{."
+        CURLYDOTRI        = ".}"
+
+        PARDOTLE          = "(."
+        PARDOTRI          = ".)"
+
+        COMMA             = ","
+        SEMICOLON         = ";"
+
+        COLON             = ":"
+        COLONCOLON        = "::"
+        EQUALS            = "="
+        DOT               = "."
+        DOTDOT            = ".."
+
+        OPR               = 'regexp:[+-*/\\<>!?\^.|=%&$@~:\x80-\xFF]'
+        COMMENT           = 'regexp:#[^\r\n]*'
+        ACCENT            = "`"
+
+        SPACES            = "regexp:[\ \t\f]"
+
+        //tkInfixOpr          =
+        //tkPrefixOpr         =
+        //tkPostfixOpr        =
+        EOL               = 'regexp:\r|\r\n|\n'
+        INVALID           = 'regexp:.+'
+    ]
+}
+
+input ::= SEMICOLON
