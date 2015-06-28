@@ -16,7 +16,7 @@
   <id>nim</id>
   <name>Nim language plugin</name>
   <version>0.1</version>
-  <vendor email="marek@server" url="https://sites.google.com/site/gibekm">Marek Gibek</vendor>
+  <vendor url="https://github.com/r-ku/intelli-nim">Marek Gibek &amp; Rokas Kupstys</vendor>
 
   <description>Nim language plugin.</description>
 
